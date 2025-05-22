@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logging Out...</title>
+  <style>
+    body { display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial, sans-serif; background-color: #f3f6fc; margin: 0; }
+    .logout-message { text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); }
+    .logout-message h2 { margin: 0; font-size: 1.8em; color: #004b6d; }
+    .logout-message p { font-size: 1.2em; color: #555; }
+    .countdown { font-size: 1.5em; font-weight: bold; color: red; }
+  </style>
+</head>
+<body onload="logoutUser()">
+  <div class="logout-message">
+    <h2>You are being logged out...</h2>
+    <p>Redirecting to login page in <span id="countdown" class="countdown">3</span> seconds...</p>
+    <p id="logout-status"></p>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+  <script>
+    const firebaseConfig = JSON.parse('{{ firebase_config | safe }}');
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const statusElement = document.getElementById('logout-status');
+
+    async function logoutUser() {
+      try {
+        await auth.signOut();
+        statusElement.textContent = 'Firebase sign-out successful.';
+        console.log('User signed out from Firebase client.');
+      } catch (error) {
+        console.error('Error signing out from Firebase client:', error);
+        statusElement.textContent = 'Error during Firebase sign-out. Proceeding...';
+      }
+
+      try {
+        const response = await fetch("{{ url_for('session_logout_server') }}", {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Server session logout successful:', data.message);
+            statusElement.textContent += ' Server session cleared.';
+        } else {
+            console.error('Server session logout failed:', response.statusText);
+            statusElement.textContent += ' Server session clear failed.';
+        }
+      } catch (error) {
+        console.error('Error calling server logout:', error);
+        statusElement.textContent += ' Error contacting server for logout.';
+      }
+      
+      localStorage.removeItem('userSession'); 
+      sessionStorage.removeItem('userSession'); 
+
+      let countdown = 3;
+      const countdownElement = document.getElementById('countdown');
+      
+      const interval = setInterval(function() {
+        countdownElement.innerText = countdown;
+        if (countdown === 0) {
+          clearInterval(interval);
+          window.location.replace("{{ url_for('login_page') }}");
+        }
+        countdown--;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

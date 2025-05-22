@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaTech AI Chatbot</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot_ui_style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <button id="sidebar-toggle-close" class="sidebar-button discrete-button">
+                <i class="fas fa-times"></i> Close Menu
+            </button>
+
+            <button id="new-chat-button" class="sidebar-button">
+                <i class="fas fa-plus-square"></i> New Chat
+            </button>
+            
+            <input type="text" id="search-conversations-input" placeholder="Search chats..." aria-label="Search past conversations">
+
+            <div class="conversations-list-container">
+                <h3>History</h3>
+                <ul id="conversations-list">
+                </ul>
+            </div>
+            <button id="delete-all-button" class="sidebar-button danger-button">
+                <i class="fas fa-trash-alt"></i> Delete All Chats
+            </button>
+        </aside>
+
+        <main class="chat-area">
+            <div class="chat-app-header">
+                <button id="sidebar-toggle-open" class="icon-button mobile-only" title="Open Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="{{ url_for('university_home') }}" class="back-button icon-button" title="Back to University Home">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back</span>
+                </a>
+                <h2 class="chat-title">NovaTech AI Assistant</h2>
+                
+        
+
+                <div class="header-actions">
+                </div>
+            </div>
+
+            <div id="chat-log-container">
+                <div id="chat-log">
+                </div>
+            </div>
+
+            <div id="loading-indicator" style="display: none;">
+                <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+                <span>Thinking...</span>
+            </div>
+            <div id="error-message" style="display: none;">
+            </div>
+
+            <div class="input-area-container">
+                <div class="input-area">
+                    <textarea id="user-input" placeholder="Ask NovaTech AI about the university..." rows="1"></textarea>
+                    <button id="send-button" title="Send message" disabled>
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                </div>
+                 <div class="input-actions">
+                    <p class="ai-disclaimer">NovaTech AI may display inaccurate info from documents. Always verify critical information.</p>
+                    <button id="clear-current-chat-button" title="Clear current chat messages">
+                        <i class="fas fa-eraser"></i>
+                    </button>
+                 </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chatbot_script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Programs - NovaTech University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/university_style.css') }}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container-nav">
+            <h1 class="logo">NovaTech<span class="accent">U</span></h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('university_home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('programs') }}" class="active">Programs</a></li>
+                    <li><a href="{{ url_for('admissions') }}">Admissions</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ url_for('chatbot_ui_page_route') }}">NovaBot</a></li>
+                    <li><a href="{{ url_for('logout_page_route') }}" class="logout-button">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h2>Explore Our Academic Programs</h2>
+            <nav class="breadcrumb-nav" aria-label="breadcrumb">
+                <a href="{{ url_for('university_home') }}">Home</a>
+                <span>></span>
+                <span>Programs</span>
+            </nav>
+        </div>
+    </div>
+
+    <main class="page-content">
+        <div class="container">
+            <section class="content-section">
+                <h3>Degree Programs at NovaTech</h3>
+                <p>NovaTech University offers a diverse range of undergraduate, postgraduate, and doctoral programs designed to equip students with the knowledge, skills, and experience needed to excel in their chosen fields. Our curriculum is industry-relevant, research-informed, and delivered by world-class faculty.</p>
+            </section>
+
+            <section class="content-section">
+                <h3>Undergraduate Programs</h3>
+                <p>Lay the foundation for a successful career with our comprehensive undergraduate degrees. Explore your passions and develop critical thinking skills in a supportive and dynamic learning environment.</p>
+                <div class="card-grid">
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/program_cs.jpg') }}" alt="Computer Science Program" class="card-image-top">
+                        <div class="card-body">
+                            <h4 class="card-title">B.Sc. Computer Science</h4>
+                            <p class="card-text">Dive into the world of algorithms, AI, software development, and cybersecurity. Prepare for a high-demand career in tech.</p>
+                            <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/program_business.jpg') }}" alt="Business Administration Program" class="card-image-top">
+                        <div class="card-body">
+                            <h4 class="card-title">B.BA. Business Administration</h4>
+                            <p class="card-text">Develop leadership, strategic thinking, and entrepreneurial skills to thrive in the global business landscape.</p>
+                            <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/program_engineering.jpg') }}" alt="Engineering Program" class="card-image-top">
+                        <div class="card-body">
+                            <h4 class="card-title">B.Eng. Mechanical Engineering</h4>
+                            <p class="card-text">Innovate and design the future of machines, robotics, and sustainable energy systems with our hands-on engineering program.</p>
+                            <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h3>Postgraduate Programs</h3>
+                <p>Advance your expertise and career prospects with our specialized Master's and Doctoral programs. Engage in cutting-edge research and become a leader in your field.</p>
+                 <div class="card-grid">
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/program_datascience.jpg') }}" alt="Data Science Program" class="card-image-top">
+                        <div class="card-body">
+                            <h4 class="card-title">M.Sc. Data Science & AI</h4>
+                            <p class="card-text">Master advanced data analysis, machine learning, and AI techniques to solve complex problems and drive innovation.</p>
+                            <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/program_mba.jpg') }}" alt="MBA Program" class="card-image-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Master of Business Administration (MBA)</h4>
+                            <p class="card-text">Elevate your leadership potential with our globally-focused MBA, designed for experienced professionals.</p>
+                            <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/program_phd_research.jpg') }}" alt="PhD Research" class="card-image-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Doctor of Philosophy (Ph.D.)</h4>
+                            <p class="card-text">Contribute to original research and scholarly knowledge in your chosen discipline under expert supervision.</p>
+                            <a href="#" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h3>Why Choose NovaTech Programs?</h3>
+                 <div class="clearfix">
+                    <div class="content-image-placeholder image-left">
+                         <img src="{{ url_for('static', filename='img/faculty_teaching.jpg') }}" alt="Faculty interacting with students">
+                    </div>
+                    <ul class="feature-list">
+                        <li>Industry-aligned curriculum co-designed with experts.</li>
+                        <li>World-class faculty and researchers.</li>
+                        <li>State-of-the-art labs, studios, and learning facilities.</li>
+                        <li>Strong emphasis on experiential learning and internships.</li>
+                        <li>Global networking and collaboration opportunities.</li>
+                        <li>Dedicated career services and alumni network.</li>
+                    </ul>
+                </div>
+                <div class="button-group">
+                    <a href="{{ url_for('admissions') }}" class="btn btn-accent">How to Apply</a>
+                    <a href="{{ url_for('contact') }}" class="btn">Speak to an Advisor</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>© <span id="currentYear"></span> NovaTech University. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

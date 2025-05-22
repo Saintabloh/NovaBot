@@ -1,0 +1,8 @@
+Flask
+Flask-CORS
+python-dotenv
+numpy
+google-generativeai
+firebase-admin
+python-docx
+langchain

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - NovaTech University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/university_style.css') }}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container-nav"> 
+            <h1 class="logo">NovaTech<span class="accent">U</span></h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('university_home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}" class="active">About Us</a></li> 
+                    <li><a href="{{ url_for('programs') }}">Programs</a></li>
+                    <li><a href="{{ url_for('admissions') }}">Admissions</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ url_for('chatbot_ui_page_route') }}">NovaBot</a></li>
+                    <li><a href="{{ url_for('logout_page_route') }}" class="logout-button">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h2>About NovaTech University</h2>
+            <nav class="breadcrumb-nav" aria-label="breadcrumb">
+                <a href="{{ url_for('university_home') }}">Home</a>
+                <span>></span>
+                <span>About Us</span>
+            </nav>
+        </div>
+    </div>
+
+    <main class="page-content">
+        <div class="container">
+            <section class="content-section">
+                <h3>Our Legacy of Excellence</h3>
+                <div class="clearfix">
+                    <div class="content-image-placeholder image-right">
+                        <img src="{{ url_for('static', filename='img/campus.jpg') }}" alt="Historic NovaTech Building">
+                    </div>
+                    <p>Founded in 1900, NovaTech University has been a beacon of knowledge and innovation for over a century. What began as a modest technical institute has blossomed into a globally recognized university, renowned for its rigorous academic programs, groundbreaking research, and commitment to societal impact.</p>
+                    <p>Our journey has been marked by continuous growth, adaptation to the evolving needs of students and industries, and an unwavering dedication to fostering an environment where curiosity thrives and leaders are made. We are proud of our rich heritage and excited about the future we are building together.</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h3>Mission & Vision</h3>
+                <p><strong>Our Mission:</strong> To cultivate intellect, creativity, and character in our students, empowering them to become innovative leaders and responsible global citizens who contribute to a sustainable and equitable world.</p>
+                <p><strong>Our Vision:</strong> To be a world-leading university recognized for excellence in interdisciplinary education, transformative research, and impactful community engagement, shaping a brighter future for all.</p>
+                <ul class="feature-list">
+                    <li>Fostering Critical Thinking</li>
+                    <li>Promoting Lifelong Learning</li>
+                    <li>Championing Diversity and Inclusion</li>
+                    <li>Driving Sustainable Innovation</li>
+                    <li>Engaging with Global Communities</li>
+                </ul>
+            </section>
+
+            <section class="content-section">
+                <h3>Meet Our Leadership</h3>
+                 <div class="clearfix">
+                    <div class="content-image-placeholder image-left">
+                        <img src="{{ url_for('static', filename='img/leader.jpg') }}" alt="Historic NovaTech Building">
+                    </div>
+                    <p>NovaTech University is guided by a dedicated team of visionary leaders, esteemed academics, and experienced administrators. Our leadership is committed to upholding the university's values, steering its strategic direction, and ensuring an exceptional educational experience for every student.</p>
+                    <p>Learn more about the individuals who are shaping the future of NovaTech and their commitment to academic excellence and student success. (You could add a link to a dedicated leadership page here).</p>
+                </div>
+                <div class="button-group">
+                    <a href="{{ url_for('contact') }}" class="btn">Contact Our Team</a>
+                </div>
+            </section>
+
+             <section class="content-section">
+                <h3>Explore More</h3>
+                <p>Discover what makes NovaTech University a unique place to learn and grow. From our cutting-edge programs to our vibrant campus life, there's something for everyone.</p>
+                <div class="button-group">
+                    <a href="{{ url_for('programs') }}" class="btn btn-accent">View Our Programs</a>
+                    <a href="{{ url_for('admissions') }}" class="btn">Admissions Process</a>
+                    <a href="{{ url_for('university_home') }}#features" class="btn btn-outline-primary">Campus Highlights</a> 
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>© <span id="currentYear"></span> NovaTech University. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

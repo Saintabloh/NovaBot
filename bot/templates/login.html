@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NovaTech University</title>
+    <style>
+        
+        :root {
+            --university-blue: #004b6d;
+            --university-blue-light: #0085b6;
+            --university-accent: #ffc107; 
+            --text-dark: #333;
+            --text-light: #f8f9fa;
+            --text-muted: #6c757d;
+            --background-light: #ffffff;
+            --border-color: #dee2e6;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --font-family-sans-serif: Arial, sans-serif;
+            --border-radius: 0.375rem; 
+        }
+
+        body {
+            font-family: var(--font-family-sans-serif);
+            background: linear-gradient(to right, var(--university-blue), var(--university-blue-light));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            color: var(--text-light);
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        h1 { 
+            margin-bottom: 25px;
+            font-size: 2.6em;
+            font-weight: 600;
+            color: var(--text-light);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        
+        .login-container {
+            background: var(--background-light);
+            color: var(--text-dark);
+            padding: 30px 35px 40px; 
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 450px; 
+            margin: auto;
+            text-align: left;
+            position: relative;
+            min-height: 520px; 
+        }
+
+        
+        .auth-method-nav {
+            display: flex;
+            justify-content: space-around; 
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .auth-method-nav button {
+            background: none;
+            border: none;
+            padding: 12px 10px; 
+            cursor: pointer;
+            font-size: 1em; 
+            font-weight: 500;
+            color: var(--text-muted);
+            border-bottom: 3px solid transparent;
+            transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+            flex-grow: 1; 
+            text-align: center;
+        }
+        .auth-method-nav button.active {
+            color: var(--university-blue);
+            border-bottom-color: var(--university-blue);
+        }
+        .auth-method-nav button:hover:not(.active) {
+            color: var(--university-blue-light);
+        }
+
+        
+        .auth-view {
+            display: none; 
+            padding: 10px 5px; 
+            animation: fadeIn 0.4s ease-out;
+        }
+        .auth-view.active {
+            display: block;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .auth-view h2 { 
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--university-blue);
+            font-size: 1.6em; 
+            font-weight: 600;
+        }
+
+        
+        label {
+            display: block;
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            color: var(--text-dark);
+            font-size: 0.9em;
+        }
+        input[type="email"], input[type="password"],
+        input[type="tel"], input[type="text"] {
+            width: 100%;
+            padding: 12px 15px; 
+            margin-bottom: 18px; 
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        input[type="email"]:focus, input[type="password"]:focus,
+        input[type="tel"]:focus, input[type="text"]:focus {
+            border-color: var(--university-blue-light);
+            box-shadow: 0 0 0 0.2rem rgba(0, 133, 182, 0.25); 
+            outline: none;
+        }
+
+        .form-action-button {
+            background: var(--university-blue);
+            color: var(--text-light);
+            padding: 12px 20px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 1.05em; 
+            font-weight: 500;
+            border-radius: var(--border-radius);
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+            margin-top: 15px; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-action-button:hover {
+            background: var(--university-blue-light);
+            transform: translateY(-1px); 
+        }
+        .form-action-button:active {
+            transform: translateY(0px);
+        }
+
+        
+        .google-btn {
+            background-color: #4285F4; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px; 
+        }
+        .google-btn img {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            background-color: white; 
+            border-radius: 50%;
+            padding: 1px; 
+        }
+        .google-btn:hover {
+            background-color: #357ae8;
+        }
+
+        
+        .auth-links {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        .auth-links a {
+            color: var(--university-blue);
+            text-decoration: none;
+            margin: 0 5px; 
+        }
+        .auth-links a:hover {
+            text-decoration: underline;
+            color: var(--university-blue-light);
+        }
+        .auth-links p {
+            margin-bottom: 8px;
+        }
+
+        .flash-messages { 
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0; 
+        }
+        .flash-messages li {
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-size: 0.95em;
+        }
+        
+        .flash-messages .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .flash-messages .info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .flash-messages .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;}
+
+        .error-message-firebase { 
+            color: var(--danger-color);
+            font-size: 0.9em;
+            margin-top: 15px;
+            text-align: center;
+            min-height: 1.2em; 
+            font-weight: 500;
+        }
+
+        
+        #phone-verification-step {
+            display: none; 
+            margin-top: 20px; 
+        }
+        #recaptcha-container {
+            margin: 20px auto 10px auto; 
+            display: flex;
+            justify-content: center;
+            
+        }
+        #google-view p { 
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--text-muted);
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>NovaTech University</h1>
+    <div class="login-container">
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flash-messages>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <div class="auth-method-nav">
+            <button id="email-tab-btn" class="active" data-view="email-view">Email</button>
+            <button id="phone-tab-btn" data-view="phone-view">Phone</button>
+            <button id="google-tab-btn" data-view="google-view">Google</button>
+        </div>
+
+        <div id="error-message-firebase-div" class="error-message-firebase"></div>
+
+        <div id="email-view" class="auth-view active">
+            <h2>Sign In with Email</h2>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="e.g., user@example.com" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+
+            <button id="email-login-button" class="form-action-button">Login</button>
+            <div class="auth-links">
+                <a href="#" id="forgot-password-link">Forgot Password?</a>
+                <p>Don't have an account? <a href="#" id="email-register-link">Register with Email</a></p>
+            </div>
+        </div>
+
+        <div id="phone-view" class="auth-view">
+            <h2>Sign In with Phone</h2>
+            <div id="phone-entry-step">
+                <label for="phone-number">Phone Number (incl. country code)</label>
+                <input type="tel" id="phone-number" placeholder="e.g., +61 412 345 678" required>
+                <button id="send-code-button" class="form-action-button">Send Verification Code</button>
+                <div id="recaptcha-container"></div>
+            </div>
+            <div id="phone-verification-step">
+                <label for="verification-code">Verification Code</label>
+                <input type="text" id="verification-code" placeholder="Enter 6-digit code" maxlength="6" required>
+                <button id="verify-code-button" class="form-action-button">Verify & Sign In</button>
+            </div>
+        </div>
+
+        <div id="google-view" class="auth-view">
+            <h2>Sign In with Google</h2>
+            <p>Click the button below to sign in using your Google Account.</p>
+            <button id="google-signin-button" class="form-action-button google-btn">
+                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo">
+                Sign in with Google
+            </button>
+        </div>
+    </div>
+
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <script>
+        const firebaseConfig = JSON.parse('{{ firebase_config | safe }}');
+        firebase.initializeApp(firebaseConfig);
+        const fbAuth = firebase.auth();
+        console.log("Client-side Firebase Project ID:", firebaseConfig.projectId);
+
+        const errorMessageDiv = document.getElementById('error-message-firebase-div');
+        const nextUrl = new URLSearchParams(window.location.search).get('next');
+
+        
+        const emailTabBtn = document.getElementById('email-tab-btn');
+        const phoneTabBtn = document.getElementById('phone-tab-btn');
+        const googleTabBtn = document.getElementById('google-tab-btn');
+        const emailView = document.getElementById('email-view');
+        const phoneView = document.getElementById('phone-view');
+        const googleView = document.getElementById('google-view');
+        const authViews = [emailView, phoneView, googleView];
+        const tabButtons = [emailTabBtn, phoneTabBtn, googleTabBtn];
+
+        function switchView(targetViewId) {
+            clearError();
+            authViews.forEach(view => {
+                view.classList.remove('active');
+                if (view.id === targetViewId) {
+                    view.classList.add('active');
+                }
+            });
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.view === targetViewId) {
+                    btn.classList.add('active');
+                }
+            });
+            if (targetViewId === 'phone-view' && !recaptchaVerifier) {
+                setTimeout(setupRecaptcha, 50); 
+            }
+        }
+        emailTabBtn.addEventListener('click', () => switchView('email-view'));
+        phoneTabBtn.addEventListener('click', () => switchView('phone-view'));
+        googleTabBtn.addEventListener('click', () => switchView('google-view'));
+
+        function displayError(message) { errorMessageDiv.textContent = message; }
+        function clearError() { errorMessageDiv.textContent = ''; }
+
+        async function handleSuccessfulLogin(user) {
+            clearError();
+            try {
+                const idToken = await user.getIdToken(true);
+                console.log("Client-side ID Token (first 30 chars):", idToken.substring(0, 30));
+                const response = await fetch("{{ url_for('session_login') }}", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idToken: idToken })
+                });
+                if (response.ok) {
+                    window.location.href = nextUrl || "{{ url_for('university_home') }}";
+                } else {
+                    const errorData = await response.json();
+                    displayError(errorData.error || 'Server login failed. Please try again.');
+                    if (fbAuth && fbAuth.currentUser) { fbAuth.signOut().catch(e => console.error("Client signout failed:", e)); }
+                }
+            } catch (error) {
+                console.error('Error during server session login:', error);
+                displayError('Failed to complete login. Please try again.');
+                if (fbAuth && fbAuth.currentUser) { fbAuth.signOut().catch(e => console.error("Client signout failed:", e));}
+            }
+        }
+
+        
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailLoginButton = document.getElementById('email-login-button');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const emailRegisterLink = document.getElementById('email-register-link');
+
+        if (emailLoginButton) {
+            emailLoginButton.addEventListener('click', async () => {
+                clearError();
+                const email = emailInput.value;
+                const password = passwordInput.value;
+                if (!email || !password) {
+                    displayError('Email and password are required.'); return;
+                }
+                try {
+                    const userCredential = await fbAuth.signInWithEmailAndPassword(email, password);
+                    await handleSuccessfulLogin(userCredential.user);
+                } catch (error) {
+                    console.error('Firebase email/password login error:', error);
+                    displayError(error.message);
+                }
+            });
+        }
+        if (forgotPasswordLink) {
+            forgotPasswordLink.addEventListener('click', async (e) => {
+                e.preventDefault(); clearError();
+                const email = emailInput.value;
+                if (!email) {
+                    displayError('Please enter your email address to reset password.'); return;
+                }
+                try {
+                    await fbAuth.sendPasswordResetEmail(email);
+                    displayError(`Password reset email sent to ${email}. Check your inbox.`);
+                } catch (error) {
+                    console.error('Firebase password reset error:', error);
+                    displayError(error.message);
+                }
+            });
+        }
+        if(emailRegisterLink) {
+            emailRegisterLink.addEventListener('click', async (e) => {
+                e.preventDefault(); clearError();
+                const email = emailInput.value;
+                const password = passwordInput.value;
+                 if (!email || !password) {
+                    displayError('Email and password are required for registration.'); return;
+                }
+                if (password.length < 6) {
+                    displayError('Password must be at least 6 characters long.'); return;
+                }
+                try {
+                    const userCredential = await fbAuth.createUserWithEmailAndPassword(email, password);
+                    await handleSuccessfulLogin(userCredential.user);
+                } catch (error) {
+                    console.error('Firebase email registration error:', error);
+                    displayError(error.message);
+                }
+            });
+        }
+
+        
+        const googleSignInButton = document.getElementById('google-signin-button');
+        if (googleSignInButton) {
+            googleSignInButton.addEventListener('click', async () => {
+                clearError();
+                const provider = new firebase.auth.GoogleAuthProvider();
+                try {
+                    const result = await fbAuth.signInWithPopup(provider);
+                    await handleSuccessfulLogin(result.user);
+                } catch (error) {
+                    console.error('Firebase Google Sign-In error:', error);
+                    if (error.code === 'auth/popup-closed-by-user') { displayError('Sign-in popup closed.'); }
+                    else if (error.code === 'auth/network-request-failed') { displayError('Network error. Please check connection.'); }
+                    else { displayError(error.message || 'Google Sign-In failed.'); }
+                }
+            });
+        }
+
+        
+        const phoneNumberInput = document.getElementById('phone-number');
+        const sendCodeButton = document.getElementById('send-code-button');
+        const verificationCodeInput = document.getElementById('verification-code');
+        const verifyCodeButton = document.getElementById('verify-code-button');
+        const phoneEntryStep = document.getElementById('phone-entry-step');
+        const phoneVerificationStep = document.getElementById('phone-verification-step');
+        let recaptchaVerifier = null;
+        let confirmationResult = null;
+
+        function setupRecaptcha() {
+            if (recaptchaVerifier) {
+                console.log("Recaptcha verifier already exists. Clearing previous instance.");
+                try { 
+                    const oldContainer = document.getElementById('recaptcha-container-dynamic');
+                    if (oldContainer) oldContainer.remove();
+                } catch (e) { console.warn("Could not remove old recaptcha container", e); }
+                recaptchaVerifier = null; 
+            }
+
+            const recaptchaContainer = document.createElement('div');
+            recaptchaContainer.id = 'recaptcha-container-dynamic'; 
+            document.getElementById('recaptcha-container').innerHTML = ''; 
+            document.getElementById('recaptcha-container').appendChild(recaptchaContainer);
+
+            console.log("Setting up new RecaptchaVerifier on", recaptchaContainer.id);
+            try {
+                 recaptchaVerifier = new firebase.auth.RecaptchaVerifier(recaptchaContainer.id, { 
+                    'size': 'invisible',
+                    'callback': (response) => { console.log("reCAPTCHA solved"); },
+                    'expired-callback': () => {
+                        displayError('reCAPTCHA verification expired. Please try sending code again.');
+                        if(sendCodeButton) sendCodeButton.disabled = false;
+                    }
+                });
+                recaptchaVerifier.render().then(function(widgetId) {
+                    window.recaptchaWidgetId = widgetId; 
+                    console.log("reCAPTCHA rendered, widget ID:", widgetId);
+                }).catch(error => {
+                    console.error("reCAPTCHA render error:", error);
+                    displayError("Failed to render reCAPTCHA. Phone sign-in may be affected.");
+                });
+            } catch(error) {
+                console.error("Error setting up RecaptchaVerifier: ", error);
+                displayError("Could not initialize reCAPTCHA for phone sign-in.");
+                if(sendCodeButton) sendCodeButton.disabled = true;
+            }
+        }
+
+        if (sendCodeButton) {
+            sendCodeButton.addEventListener('click', async () => {
+                clearError();
+                const phoneNumber = phoneNumberInput.value;
+                if (!phoneNumber) {
+                    displayError('Please enter a valid phone number including the country code (e.g., +61...).'); return;
+                }
+                if (!recaptchaVerifier) {
+                    displayError('reCAPTCHA not ready. Please wait a moment and try again.');
+                    setTimeout(setupRecaptcha, 100);
+                    return;
+                }
+                sendCodeButton.disabled = true;
+                displayError('Sending code...');
+                try {
+                    confirmationResult = await fbAuth.signInWithPhoneNumber(phoneNumber, recaptchaVerifier);
+                    console.log("SMS sent, confirmationResult available.");
+                    displayError('Verification code sent to your phone!');
+                    phoneEntryStep.style.display = 'none';
+                    phoneVerificationStep.style.display = 'block';
+                    verificationCodeInput.focus();
+                } catch (error) {
+                    console.error('Error sending SMS:', error);
+                    displayError(`Error sending code: ${error.message}`);
+                    if (window.grecaptcha && window.recaptchaWidgetId !== undefined) {
+                        try {
+                            grecaptcha.reset(window.recaptchaWidgetId); 
+                            console.log("reCAPTCHA has been reset.");
+                        } catch (e) { console.warn("Could not reset reCAPTCHA:", e); }
+                    } else {
+                        console.warn("grecaptcha or widgetId not available for reset. Re-setting up.");
+                        setupRecaptcha();
+                    }
+                } finally {
+                    if(sendCodeButton) sendCodeButton.disabled = false;
+                }
+            });
+        }
+
+        if (verifyCodeButton) {
+            verifyCodeButton.addEventListener('click', async () => {
+                clearError();
+                const code = verificationCodeInput.value;
+                if (!code || code.length !== 6) {
+                    displayError('Please enter the 6-digit verification code.'); return;
+                }
+                if (!confirmationResult) {
+                    displayError('SMS not sent or confirmation result missing. Please send code first.'); return;
+                }
+                displayError('Verifying code...');
+                try {
+                    const userCredential = await confirmationResult.confirm(code);
+                    await handleSuccessfulLogin(userCredential.user);
+                } catch (error) {
+                    console.error('Error verifying code:', error);
+                    displayError(`Error verifying code: ${error.message}`);
+                }
+            });
+        }
+
+        
+        switchView('email-view');
+
+    </script>
+</body>
+</html>

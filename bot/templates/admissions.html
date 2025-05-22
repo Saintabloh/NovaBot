@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissions - NovaTech University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/university_style.css') }}">
+    <style>
+        .admission-steps {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 20px;
+        }
+        .admission-steps li {
+            background-color: var(--background-grey);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            border-left: 5px solid var(--university-accent);
+            display: flex;
+            align-items: center;
+        }
+        .admission-steps li .step-number {
+            background-color: var(--university-accent);
+            color: var(--university-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .admission-steps li .step-content h5 {
+            margin: 0 0 5px 0;
+            font-size: 1.2em;
+            color: var(--university-blue);
+        }
+        .admission-steps li .step-content p {
+            margin: 0;
+            font-size: 0.95em;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container-nav">
+            <h1 class="logo">NovaTech<span class="accent">U</span></h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('university_home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('programs') }}">Programs</a></li>
+                    <li><a href="{{ url_for('admissions') }}" class="active">Admissions</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ url_for('chatbot_ui_page_route') }}">NovaBot</a></li>
+                    <li><a href="{{ url_for('logout_page_route') }}" class="logout-button">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h2>Your Journey to NovaTech Starts Here</h2>
+            <nav class="breadcrumb-nav" aria-label="breadcrumb">
+                <a href="{{ url_for('university_home') }}">Home</a>
+                <span>></span>
+                <span>Admissions</span>
+            </nav>
+        </div>
+    </div>
+
+    <main class="page-content">
+        <div class="container">
+            <section class="content-section">
+                <h3>Admission Process</h3>
+                <p>We're excited you're considering NovaTech University! Our admissions process is designed to identify talented and motivated students who will thrive in our innovative environment. Follow the steps below to begin your application.</p>
+
+                <ol class="admission-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h5>Explore Programs</h5>
+                            <p>Discover our wide range of <a href="{{ url_for('programs') }}">academic programs</a> and find the one that aligns with your passions and career goals.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h5>Check Requirements</h5>
+                            <p>Review the specific admission criteria for your chosen program, including academic prerequisites, language proficiency, and required documents.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h5>Prepare Your Application</h5>
+                            <p>Gather all necessary documents, such as transcripts, letters of recommendation, personal essays, and test scores (if applicable).</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h5>Apply Online</h5>
+                            <p>Submit your application through our secure online portal before the deadline. Make sure all information is accurate and complete.</p>
+                        </div>
+                    </li>
+                     <li>
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h5>Track Your Application</h5>
+                            <p>After submission, you can track the status of your application online. We will notify you of any updates or required actions.</p>
+                        </div>
+                    </li>
+                     <li>
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <h5>Receive Your Offer</h5>
+                            <p>Successful applicants will receive an official offer of admission. Congratulations! Follow the instructions to accept your offer and secure your place.</p>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            <section class="content-section">
+                <h3>Key Admission Requirements</h3>
+                <div class="clearfix">
+                    <div class="content-image-placeholder image-right">
+                         <img src="{{ url_for('static', filename='img/admissions_requirements.jpg') }}" alt="Student studying for exams">
+                    </div>
+                    <h4>General Requirements (may vary by program):</h4>
+                    <ul>
+                        <li>Completed secondary education (e.g., High School Diploma, A-Levels, IB Diploma).</li>
+                        <li>Proof of English language proficiency (e.g., IELTS, TOEFL) for non-native English speakers.</li>
+                        <li>Minimum GPA or equivalent academic standing.</li>
+                        <li>Personal statement or essay.</li>
+                        <li>Letters of recommendation (typically for postgraduate programs).</li>
+                    </ul>
+                    <p>Please visit the specific program page for detailed and up-to-date requirements.</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h3>Important Dates & Deadlines</h3>
+                <p>Stay informed about our application periods and key deadlines to ensure a smooth application process.</p>
+                <h4>Upcoming Deadlines:</h4>
+                <ul>
+                    <li><strong>Fall Semester (September Intake):</strong> Application Deadline - June 1st</li>
+                    <li><strong>Spring Semester (January Intake):</strong> Application Deadline - October 15th</li>
+                </ul>
+                <p><em>Note: Deadlines may vary for specific programs or international applicants. Please check program pages.</em></p>
+                 <div class="button-group">
+                    <a href="#" class="btn">View Full Academic Calendar</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary">Contact Admissions Office</a>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h3>Tuition & Financial Aid</h3>
+                <div class="clearfix">
+                    <div class="content-image-placeholder image-left">
+                        <img src="{{ url_for('static', filename='img/financial_aid.jpg') }}" alt="Information on financial aid">
+                    </div>
+                    <p>NovaTech University is committed to making education accessible. We offer a range of scholarships, grants, and financial aid options for eligible students.</p>
+                    <p>Explore our tuition fees for different programs and learn about the financial support available to help you fund your studies.</p>
+                </div>
+                <div class="button-group">
+                    <a href="#" class="btn btn-accent">Tuition & Fees</a>
+                    <a href="#" class="btn">Scholarships & Aid</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>© <span id="currentYear"></span> NovaTech University. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

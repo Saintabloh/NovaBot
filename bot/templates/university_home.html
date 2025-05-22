@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to NovaTech University</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/university_style.css') }}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1 class="logo">NovaTech<span class="accent">U</span></h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('university_home') }}" class="active">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('programs') }}">Programs</a></li>
+                    <li><a href="{{ url_for('admissions') }}">Admissions</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ url_for('chatbot_ui_page_route') }}">NovaBot</a></li>
+                    <li><a href="{{ url_for('logout_page_route') }}" class="logout-button">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2>Welcome to <span class="highlight">NovaTech University</span>{% if user_name %}, {{ user_name }}{% endif %}!</h2>
+            <p class="subtitle">Pioneering the Future of Education and Innovation. Discover a world of opportunity and start your journey with us today.</p>
+            <a href="{{ url_for('programs') }}" class="hero-cta">Explore Our Programs</a>
+        </div>
+    </section>
+
+    <main>
+        <section class="novabot-section container">
+            <div class="novabot-content">
+                <div class="novabot-text">
+                    <span class="section-tag">Meet Your AI Guide</span>
+                    <h3>Introducing <span class="highlight">NovaBot</span></h3>
+                    <p>
+                        Navigate your university journey with ease! NovaBot is your dedicated AI-powered assistant, designed to provide
+                        instant, accurate information about NovaTech University. From admission queries to campus facility details,
+                        NovaBot leverages our official documents to give you the answers you need, 24/7.
+                    </p>
+                    <p>
+                        Think of NovaBot as your personal concierge for all things NovaTech. It's built using advanced AI and
+                        Retrieval Augmented Generation (RAG) to understand your questions and pull information directly from our
+                        knowledge base, ensuring you get reliable and up-to-date responses.
+                    </p>
+                    <ul class="novabot-features-list">
+                        <li><i class="fas fa-check-circle"></i> Instant answers to your university questions.</li>
+                        <li><i class="fas fa-book-open"></i> Access information from official documents.</li>
+                        <li><i class="fas fa-headset"></i> Available 24/7 for your convenience.</li>
+                        <li><i class="fas fa-search-location"></i> Helps you find what you're looking for quickly.</li>
+                        <li><i class="fas fa-graduation-cap"></i> Your smart companion for academic and campus life.</li>
+                    </ul>
+                    <a href="{{ url_for('chatbot_ui_page_route') }}" class="novabot-cta">
+                        <i class="fas fa-robot"></i> Chat with NovaBot Now
+                    </a>
+                </div>
+                <div class="novabot-image-container">
+                    <img src="{{ url_for('static', filename='img/novabot_hero.png') }}" alt="NovaBot AI Assistant Illustration">
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section container">
+            <h2 class="section-title">Discover <span class="highlight">NovaTech</span></h2>
+            <p class="section-subtitle">
+                At NovaTech University, we're more than just an institution; we're a vibrant community dedicated to fostering innovation,
+                critical thinking, and global leadership. Explore some of our unique offerings:
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="{{ url_for('static', filename='img/innovation_hub.jpg') }}" alt="Students collaborating in Innovation Hub" class="feature-image">
+                    <div class="feature-card-content">
+                        <h4>The <span class="highlight">Innovation Hub</span></h4>
+                        <p>Our state-of-the-art Innovation Hub provides students and faculty with resources, mentorship, and a collaborative space to turn groundbreaking ideas into real-world solutions and startups.</p>
+                        <a href="#" class="learn-more-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <img src="{{ url_for('static', filename='img/global_exchange.jpg') }}" alt="Diverse students in front of global landmarks collage" class="feature-image">
+                    <div class="feature-card-content">
+                        <h4>Global <span class="highlight">Exchange Programs</span></h4>
+                        <p>Broaden your horizons with our extensive network of international partner universities. Experience new cultures, gain global perspectives, and build an international network.</p>
+                        <a href="#" class="learn-more-btn">Explore Exchanges <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <img src="{{ url_for('static', filename='img/career_accelerator.jpg') }}" alt="Student in professional attire shaking hands with employer" class="feature-image">
+                    <div class="feature-card-content">
+                        <h4>Career <span class="highlight">Accelerator</span></h4>
+                        <p>Our dedicated Career Accelerator program offers personalized coaching, internship placements with leading companies, and workshops to ensure you're job-ready upon graduation.</p>
+                        <a href="#" class="learn-more-btn">Boost Your Career <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                 <div class="feature-card">
+                    <img src="{{ url_for('static', filename='img/research_breakthrough.jpg') }}" alt="Scientist looking into a microscope" class="feature-image">
+                    <div class="feature-card-content">
+                        <h4>Cutting-Edge <span class="highlight">Research</span></h4>
+                        <p>Engage in transformative research alongside world-renowned faculty in fields like AI, sustainable energy, biotechnology, and quantum computing. Make your mark on the future.</p>
+                        <a href="#" class="learn-more-btn">Discover Research <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <img src="{{ url_for('static', filename='img/sustainable_campus.jpg') }}" alt="Green campus with solar panels and students cycling" class="feature-image">
+                    <div class="feature-card-content">
+                        <h4>Sustainable <span class="highlight">Future Initiative</span></h4>
+                        <p>NovaTech is committed to a greener tomorrow. Our campus boasts eco-friendly buildings, renewable energy projects, and active student-led sustainability programs.</p>
+                        <a href="#" class="learn-more-btn">Join Our Green Mission <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <img src="{{ url_for('static', filename='img/campus_life_event.jpg') }}" alt="Students at an outdoor campus festival" class="feature-image">
+                    <div class="feature-card-content">
+                        <h4>Vibrant <span class="highlight">Campus Life</span></h4>
+                        <p>With over 150 clubs, diverse cultural events, sports, and arts programs, NovaTech offers a rich and engaging student experience beyond the classroom.</p>
+                        <a href="#" class="learn-more-btn">Experience Student Life <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>© <span id="currentYear"></span> NovaTech University. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - NovaTech University</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: linear-gradient(to right, #004b6d, #0085b6); display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; text-align: center; color: white; padding: 20px; box-sizing: border-box; margin: 0; }
+        h1 { margin-bottom: 40px; font-size: 2.8em; }
+        .auth-box { background: white; color: black; padding: 30px 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); width: 100%; max-width: 400px; margin: auto; text-align: left; }
+        .auth-box h2 { text-align: center; margin-bottom: 25px; color: #004b6d; font-size: 2em; }
+        .auth-box label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        .auth-box input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 1em; }
+        .auth-box button { background: #004b6d; color: white; padding: 12px 20px; border: none; width: 100%; cursor: pointer; font-size: 1.1em; border-radius: 5px; transition: background-color 0.3s ease; margin-top: 10px; }
+        .auth-box button:hover { background: #00334d; }
+        .auth-box .google-btn { background-color: #4285F4; color: white; margin-top: 15px; }
+        .auth-box .google-btn:hover { background-color: #357ae8; }
+        .error-message { color: red; font-size: 0.9em; margin-bottom: 10px; text-align: center; }
+        .auth-links { text-align: center; margin-top: 15px; }
+        .auth-links a { color: #004b6d; text-decoration: none; }
+        .auth-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>NovaTech University</h1>
+    <div class="auth-box">
+        <h2>Create Account</h2>
+        <div id="error-message-div" class="error-message" style="display: none;"></div>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Choose a password (min. 6 characters)" required>
+        
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+
+        <button id="register-button">Register with Email</button>
+        <button id="google-signin-button" class="google-btn">Sign up with Google</button>
+
+        <div class="auth-links">
+            <p>Already have an account? <a href="{{ url_for('login_page') }}">Login Here</a></p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <script>
+        const firebaseConfig = JSON.parse('{{ firebase_config | safe }}');
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const registerButton = document.getElementById('register-button');
+        const googleSignInButton = document.getElementById('google-signin-button');
+        const errorMessageDiv = document.getElementById('error-message-div');
+
+        function displayError(message) {
+            errorMessageDiv.textContent = message;
+            errorMessageDiv.style.display = 'block';
+        }
+
+        function clearError() {
+            errorMessageDiv.textContent = '';
+            errorMessageDiv.style.display = 'none';
+        }
+        
+        async function handleSuccessfulLogin(user) {
+            try {
+                const idToken = await user.getIdToken(true);
+                const response = await fetch("{{ url_for('session_login') }}", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idToken: idToken })
+                });
+                if (response.ok) {
+                    window.location.href = "{{ url_for('university_home') }}";
+                } else {
+                    const errorData = await response.json();
+                    displayError(errorData.error || 'Server login failed.');
+                    auth.signOut(); // Sign out from Firebase if server session fails
+                }
+            } catch (error) {
+                console.error('Error during server session login:', error);
+                displayError('Failed to complete login with server.');
+                auth.signOut();
+            }
+        }
+
+        registerButton.addEventListener('click', async () => {
+            clearError();
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (!email || !password || !confirmPassword) {
+                displayError('All fields are required.');
+                return;
+            }
+            if (password !== confirmPassword) {
+                displayError('Passwords do not match.');
+                return;
+            }
+            if (password.length < 6) {
+                displayError('Password must be at least 6 characters long.');
+                return;
+            }
+
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                // Registration successful
+                await handleSuccessfulLogin(userCredential.user);
+            } catch (error) {
+                console.error('Firebase registration error:', error);
+                displayError(error.message);
+            }
+        });
+
+        googleSignInButton.addEventListener('click', async () => {
+            clearError();
+            const provider = new firebase.auth.GoogleAuthProvider();
+            try {
+                const result = await auth.signInWithPopup(provider);
+                // Google Sign-In successful
+                await handleSuccessfulLogin(result.user);
+            } catch (error) {
+                console.error('Firebase Google Sign-In error:', error);
+                if (error.code !== 'auth/popup-closed-by-user') {
+                     displayError(error.message);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
